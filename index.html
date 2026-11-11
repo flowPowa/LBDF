@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La Boutique de Flow — boutique itinérante pop culture et street art</title>
+<meta name="description" content="Sérigraphies, stickers, magnets, matchbox, skates et transferts sur bois. Boutique itinérante pop culture et street art, près de Nantes, depuis 2020.">
+<link rel="canonical" href="https://laboutiquedeflow.com/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="La Boutique de Flow">
+<meta property="og:description" content="Boutique itinérante pop culture et street art, près de Nantes.">
+<meta property="og:url" content="https://laboutiquedeflow.com/">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#1E1847">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Press+Start+2P&family=Rubik:wght@400;700&display=swap" rel="stylesheet">
+<script src="reglages.js"></script>
+
+<style>
+  :root {
+    --nuit: #1E1847;
+    --boite: #2A2266;
+    --trame: #3A3280;
+    --or: #FFD23F;
+    --cyan: #3DE0E6;
+    --blanc: #FFFFFF;
+    --mesure: 64ch;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0; background: var(--nuit); color: var(--blanc);
+    font: 400 1.0625rem/1.6 "Rubik", system-ui, sans-serif;
+  }
+  img { max-width: 100%; display: block; }
+  [hidden] { display: none !important; }
+  a { color: var(--cyan); }
+  a:hover { color: var(--or); }
+  :focus-visible { outline: 3px solid var(--or); outline-offset: 3px; }
+  .wrap { width: min(1180px, 100% - 2.5rem); margin-inline: auto; }
+  .pixel { font-family: "Press Start 2P", monospace; font-size: .75rem; line-height: 1.6; }
+  h2 { font: 400 clamp(1.8rem, 4vw, 2.6rem)/1.05 "Bungee", sans-serif; margin: 0 0 1.5rem; color: var(--cyan); }
+  p { max-width: var(--mesure); margin: 0 0 1rem; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* Boîte de dialogue façon jeu rétro : double liseré blanc */
+  .boite {
+    background: var(--boite); border: 4px solid var(--blanc); border-radius: 10px;
+    box-shadow: inset 0 0 0 4px var(--nuit), inset 0 0 0 6px var(--blanc);
+    padding: 1.5rem 1.75rem;
+  }
+
+  /* ---------- Navigation ---------- */
+  .nav { display: flex; justify-content: space-between; align-items: center; gap: 1rem 2rem; flex-wrap: wrap; padding-block: 1.5rem; }
+  .nav .marque { font: 400 1.2rem "Bungee", sans-serif; color: var(--or); text-decoration: none; }
+  .nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .5rem 1.6rem; }
+  .nav ul a { color: var(--blanc); text-decoration: none; display: inline-block; padding-block: .5rem; }
+  .nav ul a::before { content: "▶"; color: var(--or); margin-right: .5em; visibility: hidden; }
+  .nav ul a:hover::before, .nav ul a:focus-visible::before { visibility: visible; }
+
+  /* ---------- Accueil ---------- */
+  .hero { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 3rem; align-items: center; padding-block: 2.5rem 4.5rem; }
+  .hero h1 { margin: 0; font-weight: 400; font-family: "Bungee", sans-serif; line-height: .9; }
+  .hero h1 .petit { display: block; font-size: clamp(1.4rem, 3.2vw, 2.4rem); }
+  .hero h1 .grand { display: block; font-size: clamp(5rem, 15vw, 10.5rem); color: var(--or); text-shadow: .04em .04em 0 var(--cyan); }
+  .hero .boite { margin-top: 2rem; }
+  .hero .boite p { margin: 0 0 .4rem; }
+  .accroche { font-weight: 700; }
+  .actions { display: flex; flex-wrap: wrap; gap: .5rem 1.75rem; margin-top: 1.1rem; }
+  .actions a { color: var(--blanc); text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; }
+  .actions a::before { content: "▶"; color: var(--or); margin-right: .6em; }
+  .actions a:hover { color: var(--or); }
+
+  .planche { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 10px; background: #000; padding: 10px; aspect-ratio: 1 / 1; transform: rotate(1.5deg); }
+  .planche > div { background: var(--blanc); overflow: hidden; position: relative; }
+  .planche > div:first-child { grid-row: span 2; }
+  .planche img { width: 100%; height: 100%; object-fit: cover; }
+  .trame-cyan { background-image: radial-gradient(var(--cyan) 30%, var(--blanc) 32%) !important; background-size: 9px 9px !important; }
+  .trame-nuit { background-image: radial-gradient(var(--nuit) 30%, var(--blanc) 32%) !important; background-size: 8px 8px !important; }
+  .trame-or   { background-image: radial-gradient(var(--or) 34%, var(--blanc) 36%) !important; background-size: 9px 9px !important; }
+  @media (prefers-reduced-motion: no-preference) {
+    .planche { animation: arrivee .7s cubic-bezier(.2,.8,.2,1) both; }
+    @keyframes arrivee { from { transform: rotate(6deg) translateY(24px); opacity: 0; } to { transform: rotate(1.5deg); opacity: 1; } }
+  }
+
+  /* ---------- Portfolio ---------- */
+  .portfolio { background: var(--blanc); color: var(--nuit); padding-block: 4rem; }
+  .portfolio h2 { color: var(--nuit); }
+  .filtres { display: flex; flex-wrap: wrap; gap: .6rem; margin: 0 0 1.5rem; padding: 0; list-style: none; }
+  .filtres button {
+    font: 700 1rem "Rubik", sans-serif; min-height: 44px; padding: .4rem 1rem; cursor: pointer;
+    border: 2px solid var(--nuit); border-radius: 999px; background: var(--blanc); color: var(--nuit);
+  }
+  .filtres button:hover { background: #EEF0FF; }
+  .filtres button[aria-pressed="true"] { background: var(--nuit); color: var(--blanc); }
+  .carrousel { position: relative; }
+  .grille {
+    --visibles: 4; display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory;
+    scroll-behavior: smooth; padding-bottom: 12px; scrollbar-width: thin; scrollbar-color: var(--nuit) #E4E6F5;
+  }
+  .grille > .case { flex: 0 0 calc((100% - (var(--visibles) - 1) * 12px) / var(--visibles)); scroll-snap-align: start; }
+  @media (prefers-reduced-motion: reduce) { .grille { scroll-behavior: auto; } }
+  .barre-carrousel { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: .75rem; }
+  .fleches { display: flex; gap: .6rem; }
+  .fleches button {
+    width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--nuit); background: var(--blanc); color: var(--nuit);
+    font: 400 .9rem "Press Start 2P", monospace; cursor: pointer; display: grid; place-items: center;
+  }
+  .fleches button:hover:not([disabled]) { background: var(--nuit); color: var(--or); }
+  .fleches button[disabled] { opacity: .3; cursor: default; }
+  .case { position: relative; aspect-ratio: 1 / 1; background: var(--blanc); border: 5px solid #000; padding: 0; margin: 0; overflow: hidden; }
+  button.case { cursor: zoom-in; display: block; width: 100%; }
+  .case img { width: 100%; height: 100%; object-fit: cover; }
+  .case .legende { position: absolute; left: 0; right: 0; bottom: 0; padding: .5rem .7rem; background: var(--nuit); color: var(--blanc); font: 700 .9rem "Rubik", sans-serif; text-align: left; }
+  .case.vide { display: flex; align-items: flex-end; }
+  .case.vide .legende { position: static; background: var(--blanc); color: var(--nuit); margin: .5rem; border: 2px solid var(--nuit); }
+  .compteur { margin: 0; font-size: .95rem; }
+
+  dialog.visionneuse { border: 4px solid var(--blanc); border-radius: 10px; padding: 0; background: var(--nuit); color: var(--blanc); max-width: min(92vw, 900px); }
+  dialog.visionneuse::backdrop { background: rgba(10, 8, 30, .85); }
+  dialog.visionneuse img { max-height: 78vh; width: auto; margin-inline: auto; }
+  dialog.visionneuse .bas { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: .75rem 1rem; }
+  dialog.visionneuse button { font: 700 1rem "Rubik", sans-serif; min-height: 44px; padding: .4rem 1rem; border-radius: 999px; border: 2px solid var(--blanc); background: transparent; color: var(--blanc); cursor: pointer; }
+
+  /* ---------- Comment c'est fait ---------- */
+  .fabrication { padding-block: 4rem 2rem; }
+  .fabrication .sous { color: var(--or); margin: -.75rem 0 2rem; }
+  .etapes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem 2rem; }
+  .etapes li .niv { display: block; color: var(--or); margin-bottom: .5rem; }
+  .etapes li p { margin: 0; }
+  .renvoi { margin-top: 1.5rem; }
+
+  /* ---------- À propos ---------- */
+  .apropos { padding-block: 2rem 4rem; }
+  .apropos .boite { display: grid; grid-template-columns: 14rem minmax(0, 1fr); gap: 2rem; }
+  .apropos h2 { margin-bottom: .5rem; }
+  .apropos .depuis { color: var(--or); }
+
+  /* ---------- Calendrier ---------- */
+  .calendrier { padding-block: 4rem; border-top: 4px solid var(--blanc); }
+  .marches { display: grid; gap: 1rem; max-width: 52rem; }
+  .marche { background: var(--boite); border: 4px solid var(--blanc); border-radius: 10px; }
+  .marche summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: auto 1fr auto; gap: .5rem 1rem; align-items: baseline; padding: 1rem 1.25rem; min-height: 44px; }
+  .marche summary::-webkit-details-marker { display: none; }
+  .marche summary .date { color: var(--or); }
+  .marche summary .nom { font-weight: 700; }
+  .marche summary .fleche { color: var(--or); transition: transform .2s; }
+  .marche[open] summary .fleche { transform: rotate(90deg); }
+  @media (prefers-reduced-motion: reduce) { .marche summary .fleche { transition: none; } }
+  .marche .contenu { padding: 0 1.25rem 1.25rem; }
+  .marche .infos { display: grid; grid-template-columns: max-content 1fr; gap: .25rem 1rem; margin: 0 0 1rem; }
+  .marche .infos dt { color: var(--cyan); }
+  .marche .infos dd { margin: 0; }
+  .carte { height: 260px; border: 2px solid var(--cyan); background: var(--trame); }
+  .vide-marches { max-width: 52rem; }
+  .passes { margin-top: 2rem; max-width: 52rem; }
+  .passes > summary { cursor: pointer; color: var(--or); min-height: 44px; display: inline-flex; align-items: center; }
+  .passes ul { margin: 1rem 0 0; padding-left: 1.2rem; }
+
+  /* ---------- Contact ---------- */
+  .contact { padding-block: 4rem; border-top: 4px solid var(--blanc); }
+  .contact .grille-contact { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 3rem; align-items: start; }
+  form { display: grid; gap: 1.1rem; }
+  label { display: block; font-weight: 700; margin-bottom: .35rem; }
+  label .requis { color: var(--or); }
+  input, select, textarea {
+    width: 100%; font: 400 1rem "Rubik", sans-serif; color: var(--blanc);
+    background: var(--nuit); border: 2px solid var(--blanc); border-radius: 6px; padding: .7rem .85rem; min-height: 44px;
+  }
+  textarea { min-height: 9rem; resize: vertical; }
+  input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--or); outline-offset: 1px; }
+  .envoyer { justify-self: start; font: 400 .8rem "Press Start 2P", monospace; color: var(--nuit); background: var(--or); border: 0; border-radius: 6px; padding: 1rem 1.4rem; cursor: pointer; min-height: 44px; }
+  .envoyer:hover { background: var(--blanc); }
+  .envoyer[disabled] { opacity: .6; cursor: wait; }
+  .message-form { min-height: 1.6em; margin: 0; }
+  .message-form.ok { color: var(--cyan); }
+  .message-form.erreur { color: var(--or); }
+  .piege { position: absolute; left: -9999px; }
+
+  /* ---------- Pied de page ---------- */
+  footer { border-top: 4px solid var(--blanc); padding-block: 2rem 3rem; font-size: .95rem; }
+  footer .ligne { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }
+  footer details summary { cursor: pointer; min-height: 44px; display: inline-flex; align-items: center; }
+
+  /* ---------- Téléphone ---------- */
+  @media (max-width: 860px) {
+    .hero, .contact .grille-contact, .apropos .boite { grid-template-columns: 1fr; }
+    .hero { gap: 2rem; }
+    .planche { max-width: 26rem; }
+    .grille { --visibles: 2; }
+  }
+  @media (max-width: 560px) {
+    .grille { --visibles: 1.3; }
+    .fleches { display: none; }
+  }
+  @media (max-width: 520px) {
+    .marche summary { grid-template-columns: 1fr auto; }
+    .marche summary .date { grid-column: 1 / -1; }
+    .marche .infos { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="wrap nav">
+  <a class="marque" href="#accueil">La Boutique de Flow</a>
+  <nav aria-label="Navigation principale">
+    <ul>
+      <li><a href="#portfolio" class="pixel">Portfolio</a></li>
+      <li><a href="#fabrication" class="pixel">L'atelier</a></li>
+      <li><a href="#calendrier" class="pixel">Calendrier</a></li>
+      <li><a href="#contact" class="pixel">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <!-- ===== Accueil ===== -->
+  <section id="accueil" class="wrap hero" aria-labelledby="titre">
+    <div>
+      <h1 id="titre"><span class="petit">La Boutique de</span><span class="grand">FLOW</span></h1>
+      <div class="boite">
+        <p class="accroche">Boutique itinérante pop culture et street art, depuis 2020.</p>
+        <p>Sérigraphies, stickers, skates et transferts sur bois, faits main près de Nantes.</p>
+        <div class="actions pixel">
+          <a id="lien-etsy" href="#" hidden>Boutique Etsy</a>
+          <a href="#contact">Me contacter</a>
+          <a id="lien-insta" href="#">Instagram</a>
+        </div>
+      </div>
+    </div>
+    <div class="planche" id="planche" aria-hidden="true">
+      <div></div><div class="trame-nuit"></div><div class="trame-or"></div>
+    </div>
+  </section>
+
+  <!-- ===== Portfolio ===== -->
+  <section id="portfolio" class="portfolio" aria-labelledby="t-portfolio">
+    <div class="wrap">
+      <h2 id="t-portfolio">Portfolio</h2>
+      <ul class="filtres" id="filtres" aria-label="Filtrer par catégorie"></ul>
+      <div class="carrousel">
+        <div class="grille" id="grille" tabindex="0" role="region" aria-label="Photos du portfolio, faire défiler horizontalement"></div>
+        <div class="barre-carrousel">
+          <p class="compteur" id="compteur" aria-live="polite"></p>
+          <div class="fleches">
+            <button type="button" id="prec" aria-label="Photos précédentes">◀</button>
+            <button type="button" id="suiv" aria-label="Photos suivantes">▶</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Comment c'est fait ===== -->
+  <section id="fabrication" class="wrap fabrication" aria-labelledby="t-fabrication">
+    <h2 id="t-fabrication">Comment c'est fait</h2>
+    <p class="sous pixel" id="fabrication-cat" aria-live="polite"></p>
+    <ol class="etapes" id="etapes"></ol>
+    <p class="renvoi" id="renvoi" hidden></p>
+  </section>
+
+  <!-- ===== À propos ===== -->
+  <section id="apropos" class="wrap apropos" aria-labelledby="t-apropos">
+    <div class="boite">
+      <div>
+        <h2 id="t-apropos">À propos</h2>
+        <p class="pixel depuis">Depuis 2020</p>
+      </div>
+      <div>
+        <!-- TEXTE PROVISOIRE : à remplacer par votre présentation -->
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        <p>— Flow</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Calendrier ===== -->
+  <section id="calendrier" class="calendrier" aria-labelledby="t-calendrier">
+    <div class="wrap">
+      <h2 id="t-calendrier">Calendrier</h2>
+      <div class="marches" id="marches"></div>
+      <details class="passes" id="passes" hidden>
+        <summary class="pixel">▶ Déjà fait</summary>
+        <ul id="liste-passes"></ul>
+      </details>
+    </div>
+  </section>
+
+  <!-- ===== Contact ===== -->
+  <section id="contact" class="contact" aria-labelledby="t-contact">
+    <div class="wrap grille-contact">
+      <div>
+        <h2 id="t-contact">Contact</h2>
+        <p>Une question sur une création, une envie de pièce sur mesure, un marché ou une boutique qui voudrait m'accueillir ? Écrivez-moi, je réponds en général sous quelques jours.</p>
+        <p>Vous pouvez aussi m'écrire sur <a id="lien-insta-2" href="#">Instagram</a>.</p>
+      </div>
+      <form id="formulaire" novalidate>
+        <div>
+          <label for="f-nom">Nom ou pseudo <span class="requis" aria-hidden="true">*</span></label>
+          <input id="f-nom" name="nom" type="text" autocomplete="name" required>
+        </div>
+        <div>
+          <label for="f-email">E-mail <span class="requis" aria-hidden="true">*</span></label>
+          <input id="f-email" name="email" type="email" autocomplete="email" placeholder="nom@exemple.fr" required>
+        </div>
+        <div>
+          <label for="f-type">Type de demande <span class="requis" aria-hidden="true">*</span></label>
+          <select id="f-type" name="type" required>
+            <option value="">Choisir…</option>
+            <option>Question</option>
+            <option>Commande sur mesure</option>
+            <option>Professionnel / marché</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div>
+          <label for="f-message">Message <span class="requis" aria-hidden="true">*</span></label>
+          <textarea id="f-message" name="message" required></textarea>
+        </div>
+        <input class="piege" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="envoyer" type="submit">▶ Envoyer</button>
+        <p class="message-form" id="message-form" role="status"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <div class="ligne">
+    <span>© <span id="annee"></span> La Boutique de Flow</span>
+    <a id="lien-insta-3" href="#">Instagram</a>
+  </div>
+  <details>
+    <summary>Mentions légales</summary>
+    <p><strong>Éditeur :</strong> <span data-reglage="editeur"></span>, entrepreneur individuel — La Boutique de Flow — SIRET <span data-reglage="siret"></span> — <span data-reglage="adresse"></span>. Contact : formulaire de cette page.</p>
+    <p><strong>Hébergement :</strong> GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis (service GitHub Pages).</p>
+    <p><strong>Données personnelles :</strong> ce site ne dépose aucun cookie. Les messages envoyés par le formulaire transitent par le service Formspree et ne servent qu'à vous répondre. Les polices viennent de Google Fonts ; les cartes, d'OpenStreetMap.</p>
+  </details>
+</footer>
+
+<dialog class="visionneuse" id="visionneuse" aria-label="Photo agrandie">
+  <img id="visionneuse-img" src="" alt="">
+  <div class="bas"><span id="visionneuse-titre"></span><button type="button" id="visionneuse-fermer">Fermer</button></div>
+</dialog>
+
+<script>
+(function () {
+  const R = (typeof REGLAGES !== 'undefined') ? REGLAGES : {};
+
+  /* ---------- Catégories et étapes de fabrication ---------- */
+  const CATEGORIES = [
+    { id: 'serigraphies', nom: 'Sérigraphies', etapes: [
+      'Le visuel est dessiné puis séparé en couleurs : une couleur, un passage.',
+      'Chaque couleur est imprimée sur un film transparent, le typon.',
+      'Insolation : la lumière fixe le motif sur l’écran et crée le pochoir.',
+      'Tirage : l’encre passe à la racle à travers l’écran, feuille après feuille.'] },
+    { id: 'stickers', nom: 'Stickers', etapes: [
+      'Le visuel est créé avec l’assistance de l’IA.',
+      'Impression sur papier adhésif.',
+      'Découpe à la forme au plotter de découpe.',
+      'Mise en planche ou à l’unité.'] },
+    { id: 'magnets', nom: 'Magnets', etapes: [
+      'Le visuel est imprimé en miroir.',
+      'Il est appliqué sur un petit morceau de bois avec un produit de transfert.',
+      'Après séchage, le papier est retiré à l’eau : l’image reste dans le bois.',
+      'Finition.',
+      'Un aimant est collé au dos.'] },
+    { id: 'matchbox', nom: 'Matchbox', etapes: [
+      'Un visuel au style vintage est créé.',
+      'Il est imprimé puis découpé en sticker.',
+      'Le sticker est collé sur la boîte d’allumettes.'] },
+    { id: 'skates', nom: 'Skates', renvoi: 'serigraphies', etapes: [
+      'Le visuel est sérigraphié sur une fine lamelle de bois découpée en forme de skate.',
+      'Plusieurs lamelles sont collées les unes sur les autres.',
+      'L’ensemble sèche sous vide, plaqué sur un gabarit qui donne sa courbure à la planche.',
+      'Après séchage, les contours sont poncés.'] },
+    { id: 'transferts', nom: 'Transferts', etapes: [
+      'Le visuel est imprimé en miroir.',
+      'Il est appliqué sur le bois avec un produit de transfert.',
+      'Après séchage, le papier est retiré à l’eau : l’image reste dans le bois.',
+      'Finition.'] }
+  ];
+  const parId = Object.fromEntries(CATEGORIES.map(c => [c.id, c]));
+  const photos = (R.photos || []).filter(p => p && p.fichier && parId[p.categorie]);
+  let courante = 'tout';
+
+  /* ---------- Liens ---------- */
+  ['lien-insta', 'lien-insta-2', 'lien-insta-3'].forEach(id => {
+    const a = document.getElementById(id);
+    if (R.instagram) { a.href = R.instagram; a.target = '_blank'; a.rel = 'noopener'; }
+    else a.hidden = true;
+  });
+  if (R.etsy) {
+    const e = document.getElementById('lien-etsy');
+    e.href = R.etsy; e.target = '_blank'; e.rel = 'noopener'; e.hidden = false;
+  }
+  document.querySelectorAll('[data-reglage]').forEach(el => { el.textContent = R[el.dataset.reglage] || ''; });
+  document.getElementById('annee').textContent = new Date().getFullYear();
+
+  /* ---------- Planche d'accueil : 3 premières photos ---------- */
+  const planche = document.getElementById('planche').children;
+  photos.slice(0, 3).forEach((p, i) => {
+    const img = document.createElement('img');
+    img.src = 'images/' + p.fichier; img.alt = '';
+    planche[i].className = ''; planche[i].appendChild(img);
+  });
+
+  /* ---------- Filtres ---------- */
+  const filtres = document.getElementById('filtres');
+  [{ id: 'tout', nom: 'Tout' }].concat(CATEGORIES).forEach(c => {
+    const li = document.createElement('li');
+    const b = document.createElement('button');
+    b.type = 'button'; b.textContent = c.nom; b.dataset.cat = c.id;
+    b.addEventListener('click', () => choisir(c.id, true));
+    li.appendChild(b); filtres.appendChild(li);
+  });
+
+  function choisir(id, depuisClic) {
+    courante = parId[id] ? id : 'tout';
+    filtres.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.cat === courante));
+    afficherGrille(); afficherEtapes();
+    if (depuisClic) {
+      const h = courante === 'tout' ? '#portfolio' : '#' + courante;
+      history.replaceState(null, '', h);
+    }
+  }
+
+  /* ---------- Grille de photos ---------- */
+  const grille = document.getElementById('grille');
+  const compteur = document.getElementById('compteur');
+  let total = 0;
+  const prec = document.getElementById('prec'), suiv = document.getElementById('suiv');
+  function pas() { const c = grille.querySelector('.case'); return c ? c.getBoundingClientRect().width + 12 : 0; }
+  function majCarrousel() {
+    const p = pas();
+    if (!total) { compteur.textContent = 'Photos à venir.'; prec.disabled = suiv.disabled = true; return; }
+    const debut = p ? Math.round(grille.scrollLeft / p) + 1 : 1;
+    const visibles = p ? Math.max(1, Math.floor((grille.clientWidth + 12) / p + 0.05)) : 1;
+    const fin = Math.min(total, debut + visibles - 1);
+    compteur.textContent = (debut === fin ? debut : debut + '–' + fin) + ' sur ' + total + (total > 1 ? ' créations' : ' création');
+    prec.disabled = grille.scrollLeft <= 2;
+    suiv.disabled = grille.scrollLeft + grille.clientWidth >= grille.scrollWidth - 2;
+  }
+  prec.addEventListener('click', () => grille.scrollBy({ left: -pas() * Math.max(1, Math.floor((grille.clientWidth + 12) / pas() + 0.05)) }));
+  suiv.addEventListener('click', () => grille.scrollBy({ left: pas() * Math.max(1, Math.floor((grille.clientWidth + 12) / pas() + 0.05)) }));
+  grille.addEventListener('scroll', () => requestAnimationFrame(majCarrousel), { passive: true });
+  window.addEventListener('resize', majCarrousel);
+  function afficherGrille() {
+    grille.innerHTML = '';
+    grille.scrollTo({ left: 0, behavior: 'instant' });
+    const liste = courante === 'tout' ? photos : photos.filter(p => p.categorie === courante);
+    if (liste.length) {
+      liste.forEach((p, i) => {
+        const b = document.createElement('button');
+        b.type = 'button'; b.className = 'case';
+        const titre = p.titre || parId[p.categorie].nom;
+        b.setAttribute('aria-label', 'Agrandir : ' + titre);
+        const img = document.createElement('img');
+        img.src = 'images/' + p.fichier; img.alt = ''; img.loading = 'lazy';
+        const leg = document.createElement('span'); leg.className = 'legende'; leg.textContent = titre;
+        b.append(img, leg);
+        b.addEventListener('click', () => ouvrir(p, titre));
+        grille.appendChild(b);
+      });
+      total = liste.length;
+    } else {
+      const noms = courante === 'tout' ? CATEGORIES.map(c => c.nom) : [parId[courante].nom];
+      const cases = courante === 'tout' ? noms.slice(0, 4) : [noms[0], noms[0], noms[0], noms[0]];
+      const trames = ['', 'trame-cyan', '', 'trame-or'];
+      cases.forEach((n, i) => {
+        const d = document.createElement('div');
+        d.className = 'case vide ' + trames[i];
+        d.innerHTML = '<span class="legende"></span>';
+        d.querySelector('.legende').textContent = n;
+        grille.appendChild(d);
+      });
+      total = 0;
+    }
+    majCarrousel();
+  }
+
+  /* ---------- Visionneuse ---------- */
+  const dlg = document.getElementById('visionneuse');
+  function ouvrir(p, titre) {
+    document.getElementById('visionneuse-img').src = 'images/' + p.fichier;
+    document.getElementById('visionneuse-img').alt = titre;
+    document.getElementById('visionneuse-titre').textContent = titre;
+    if (dlg.showModal) dlg.showModal();
+  }
+  document.getElementById('visionneuse-fermer').addEventListener('click', () => dlg.close());
+  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+
+  /* ---------- Étapes de fabrication ---------- */
+  function afficherEtapes() {
+    const c = courante === 'tout' ? parId.serigraphies : parId[courante];
+    document.getElementById('fabrication-cat').textContent = '▶ ' + c.nom;
+    const ol = document.getElementById('etapes'); ol.innerHTML = '';
+    c.etapes.forEach((t, i) => {
+      const li = document.createElement('li');
+      li.innerHTML = '<span class="niv pixel"></span><p></p>';
+      li.querySelector('.niv').textContent = 'NIV. ' + (i + 1);
+      li.querySelector('p').textContent = t;
+      ol.appendChild(li);
+    });
+    const r = document.getElementById('renvoi');
+    if (c.renvoi) {
+      r.hidden = false; r.innerHTML = '';
+      const a = document.createElement('a'); a.href = '#' + c.renvoi;
+      a.textContent = 'Voir comment se fait une sérigraphie';
+      a.addEventListener('click', e => { e.preventDefault(); choisir(c.renvoi, true); document.getElementById('fabrication').scrollIntoView(); });
+      r.appendChild(a);
+    } else r.hidden = true;
+  }
+
+  /* ---------- Lien direct vers une catégorie (ex. laboutiquedeflow.com/#skates) ---------- */
+  function lireAdresse() {
+    const h = location.hash.slice(1);
+    if (parId[h]) { choisir(h, false); document.getElementById('portfolio').scrollIntoView(); }
+    else if (courante === 'tout') choisir('tout', false);
+  }
+  window.addEventListener('hashchange', lireAdresse);
+  lireAdresse();
+
+  /* ---------- Calendrier ---------- */
+  const aujourdhui = new Date(); aujourdhui.setHours(0, 0, 0, 0);
+  const marches = (R.marches || []).filter(m => m && m.date).map(m => Object.assign({}, m, { jour: new Date(m.date + 'T00:00:00') }))
+    .sort((a, b) => a.jour - b.jour);
+  const avenir = marches.filter(m => m.jour >= aujourdhui);
+  const passes = marches.filter(m => m.jour < aujourdhui).reverse();
+  const fmt = d => d.toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+  const zone = document.getElementById('marches');
+
+  if (!avenir.length) {
+    const p = document.createElement('p'); p.className = 'vide-marches';
+    p.innerHTML = 'Pas de marché prévu pour le moment. Les prochaines dates seront annoncées ici et sur <a href="#">Instagram</a>.';
+    const a = p.querySelector('a');
+    if (R.instagram) { a.href = R.instagram; a.target = '_blank'; a.rel = 'noopener'; }
+    zone.appendChild(p);
+  }
+  avenir.forEach((m, i) => {
+    const d = document.createElement('details'); d.className = 'marche';
+    d.innerHTML = '<summary><span class="date pixel"></span><span class="nom"></span><span class="fleche" aria-hidden="true">▶</span></summary>' +
+      '<div class="contenu"><dl class="infos"></dl></div>';
+    d.querySelector('.date').textContent = fmt(m.jour);
+    d.querySelector('.nom').textContent = m.nom + (m.ville ? ' — ' + m.ville : '');
+    const dl = d.querySelector('.infos');
+    [['Horaires', m.horaires], ['Adresse', m.adresse], ['Mon stand', m.stand], ['Le marché', m.description]].forEach(([k, v]) => {
+      if (!v) return;
+      const dt = document.createElement('dt'); dt.textContent = k;
+      const dd = document.createElement('dd'); dd.textContent = v;
+      dl.append(dt, dd);
+    });
+    if (typeof m.lat === 'number' && typeof m.lng === 'number') {
+      const c = document.createElement('div'); c.className = 'carte';
+      c.setAttribute('role', 'region'); c.setAttribute('aria-label', 'Carte : ' + m.nom);
+      d.querySelector('.contenu').appendChild(c);
+      d.addEventListener('toggle', () => { if (d.open) dessinerCarte(c, m); });
+    }
+    if (i === 0) d.open = true;
+    zone.appendChild(d);
+    if (i === 0 && d.open) setTimeout(() => d.dispatchEvent(new Event('toggle')), 0);
+  });
+  if (passes.length) {
+    document.getElementById('passes').hidden = false;
+    const ul = document.getElementById('liste-passes');
+    passes.forEach(m => {
+      const li = document.createElement('li');
+      li.textContent = fmt(m.jour) + ' — ' + m.nom + (m.ville ? ', ' + m.ville : '');
+      ul.appendChild(li);
+    });
+  }
+
+  /* Carte OpenStreetMap (bibliothèque Leaflet chargée seulement si besoin) */
+  let leaflet = null;
+  function chargerLeaflet() {
+    if (leaflet) return leaflet;
+    leaflet = new Promise((ok, ko) => {
+      const css = document.createElement('link'); css.rel = 'stylesheet';
+      css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'; document.head.appendChild(css);
+      const s = document.createElement('script'); s.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+      s.onload = () => ok(window.L); s.onerror = ko; document.head.appendChild(s);
+    });
+    return leaflet;
+  }
+  function dessinerCarte(el, m) {
+    if (el.dataset.faite) return; el.dataset.faite = '1';
+    chargerLeaflet().then(L => {
+      const carte = L.map(el, { scrollWheelZoom: false }).setView([m.lat, m.lng], 17);
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19, attribution: '&copy; contributeurs <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(carte);
+      L.marker([m.lat, m.lng]).addTo(carte).bindPopup(m.stand ? m.stand : m.nom).openPopup();
+    }).catch(() => { el.textContent = 'La carte n’a pas pu se charger. Adresse : ' + (m.adresse || m.ville || ''); });
+  }
+
+  /* ---------- Formulaire de contact ---------- */
+  const form = document.getElementById('formulaire');
+  const msg = document.getElementById('message-form');
+  function dire(texte, type) { msg.textContent = texte; msg.className = 'message-form ' + (type || ''); }
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const manquant = [...form.querySelectorAll('[required]')].find(ch => !ch.value.trim() || (ch.type === 'email' && !ch.checkValidity()));
+    if (manquant) {
+      const nom = form.querySelector('label[for="' + manquant.id + '"]').childNodes[0].textContent.trim();
+      dire(manquant.type === 'email' && manquant.value ? 'L’adresse e-mail n’est pas valide. Vérifiez-la.' : 'Le champ « ' + nom + ' » est à remplir.', 'erreur');
+      manquant.focus(); return;
+    }
+    if (!R.formspree) {
+      dire('Le formulaire n’est pas encore activé. En attendant, écrivez-moi sur Instagram.', 'erreur'); return;
+    }
+    const bouton = form.querySelector('.envoyer');
+    bouton.disabled = true; dire('Envoi en cours…');
+    try {
+      const rep = await fetch(R.formspree, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+      if (!rep.ok) throw new Error();
+      form.reset(); dire('Message envoyé. Je vous réponds dès que possible.', 'ok');
+    } catch (_) {
+      dire('Le message n’est pas parti. Vérifiez votre connexion et réessayez, ou écrivez-moi sur Instagram.', 'erreur');
+    } finally { bouton.disabled = false; }
+  });
+})();
+</script>
+</body>
+</html>

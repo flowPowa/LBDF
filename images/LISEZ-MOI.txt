@@ -1,0 +1,2 @@
+Déposez ici les photos du portfolio, puis déclarez-les dans reglages.js (partie photos).
+Format conseillé : carré, moins de 300 Ko.
